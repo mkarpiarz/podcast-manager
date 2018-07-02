@@ -1,0 +1,6 @@
+== Django container usage
+Build with a specific Django version:
+
+-------
+$ docker build --build-arg DJANGO_VERSION=2.0.7 . -t <name:tag>
+-------

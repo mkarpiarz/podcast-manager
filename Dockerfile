@@ -1,3 +1,4 @@
 FROM python:3
 MAINTAINER Mariusz Karpiarz
-RUN pip install Django==1.11
+ARG DJANGO_VERSION=1.11
+RUN pip install Django==$DJANGO_VERSION
