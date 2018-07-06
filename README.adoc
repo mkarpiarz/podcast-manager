@@ -1,6 +1,8 @@
 == Django container usage
-Build with a specific Django version:
+To build a container with a specific Django version modify `requirements.txt` in the project directory.
+
+You can also build the container using a different directory entirely where you can have your own `requirements.txt`:
 
 -------
-$ docker build --build-arg DJANGO_VERSION=2.0.7 . -t <name:tag>
+$ docker build --build-arg PROJECT_DIR=<path-to-your-dir> . -t <name:tag>
 -------
