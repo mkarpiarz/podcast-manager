@@ -1,0 +1,32 @@
+== Django container usage
+To build a container with a specific Django version modify `requirements.txt` in the project directory.
+
+You can also build the container using a different directory entirely where you can have your own `requirements.txt`:
+
+-------
+$ docker build --build-arg PROJECT_DIR=<path-to-your-dir> . -t <name:tag>
+-------
+
+== API Reference
+
+-------
+GET /v1/podcasts
+-------
+Retrieves a list of all podcasts.
+
+Add `?format=json` or `.json` at the end to get output formatted in JSON.
+
+
+-------
+POST /v1/podcasts
+{
+    "name": "A podcast",
+    "url": "http://example.com"
+}
+-------
+Adds a podcast.
+
+Parameters:
+
+* *name* (required) - the name of the podcast
+* *url* (required) - URL of this podcast's feed
