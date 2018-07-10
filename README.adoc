@@ -8,10 +8,15 @@ $ docker build --build-arg PROJECT_DIR=<path-to-your-dir> . -t <name:tag>
 -------
 
 == Running the app
+First, run the database container:
+
+-------
+$ docker run -d --name postgres -e POSTGRES_USER=django -e POSTGRES_PASSWORD_FILE=/opt/postgres_pass -v $(pwd)/postgres_pass:/opt/postgres_pass -v <dir-to-store-pgdata>:/var/lib/postgresql/data postgres:10
+-------
 To run the app, first create a container off of the newly built image by running:
 
 -------
-$ docker run --name <name> -dit -p 8000:8000 <name:tag> /bin/bash
+$ docker run --name <name> -dit -p 8000:8000 --link postgres:db <name:tag> /bin/bash
 -------
 When inside the container, move to the directory with the app and run the dev server:
 

@@ -77,8 +77,12 @@ WSGI_APPLICATION = 'podcastmanager.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'django',
+        'USER': 'django',
+        'PASSWORD': '3s5w7qQs7kt5Qp5b',
+        'HOST': 'db',
+        'PORT': '',
     }
 }
 
