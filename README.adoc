@@ -16,7 +16,7 @@ $ docker run -d --name postgres -e POSTGRES_USER=django -e POSTGRES_PASSWORD_FIL
 To run the app, first create a container off of the newly built image by running:
 
 -------
-$ docker run --name <name> -dit -p 8000:8000 --link postgres:db <name:tag> /bin/bash
+$ docker run --name app -dit -p 8000:8000 $(pwd):/opt/app --link postgres:db <name:tag> /bin/bash
 -------
 When inside the container, move to the directory with the app and run the dev server:
 
@@ -24,6 +24,38 @@ When inside the container, move to the directory with the app and run the dev se
 # cd /opt/app/podcastmanager/
 # python manage.py runserver 0.0.0.0:8000
 -------
+
+=== Web server proxy
+Instead of using Django's dev server, you can use nginx to proxy request to the app run with gunicorn.
+
+Launch an nginx container and link it to the app container:
+
+-------
+$ docker run -d --name web -p 80:80 -v $(pwd)/nginx.conf:/etc/nginx/conf.d/default.conf:ro -v $(pwd)/podcastmanager/static/:/usr/share/nginx/html/static/:ro --link app:app nginx:1.15
+-------
+Inside the app container first collect static files:
+
+-------
+# cd /opt/app/podcastmanager/
+# python manage.py collectstatic
+-------
+then run `gunicorn`:
+
+-------
+# gunicorn podcastmanager.wsgi -b 0.0.0.0:8000
+-------
+API will now be available under http://localhost/.
+
+Bear in mind that nginx container is responsible for serving static files, so they won't be available when contacting the app container through its exposed port.
+
+[NOTE]
+====
+The Docker image with for the app has supervisor configured to run gunicorn inside, so instead of running the container interactively, you can just let it use its default entrypoint command by executing:
+
+-------
+$ docker run --name app -d $(pwd):/opt/app --link postgres:db <name:tag>
+-------
+====
 
 == API Reference
 
