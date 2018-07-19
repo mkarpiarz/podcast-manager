@@ -1,0 +1,27 @@
+scm-api: latest
+# git-client requirements
+credentials: latest
+apache-httpcomponents-client-4-api: latest
+jsch: latest
+ssh-credentials: latest
+structs: latest
+git-client: latest
+# git requirements
+workflow-scm-step: latest
+workflow-step-api: latest
+# matrix-project requirements
+# junit requirements
+workflow-api: latest
+junit: latest
+script-security: latest
+matrix-project: latest
+# mailer requirements
+display-url-api: latest
+mailer: latest
+git: latest
+# docker-commons requirements
+# credential-binding requirements
+plain-credentials: latest
+credentials-binding: latest
+authentication-tokens: latest
+docker-commons: latest

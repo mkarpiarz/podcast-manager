@@ -57,6 +57,27 @@ $ docker run --name app -d $(pwd):/opt/app --link postgres:db <name:tag>
 -------
 ====
 
+== CI/CD
+To build Jenkins image with plugins backed into it, run:
+
+-------
+$ docker build . -f Dockerfile.jenkins -t <name:tag>
+-------
+Run the Jenkins container with:
+
+-------
+$ docker run -d --name jenkins -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker -v <host-dir-for-jenkins-home>:/var/jenkins_home <name:tag>
+-------
+Now you can use Docker on the host from inside the Jenkins container.
+
+=== Adding Jenkins plugins
+To install a new Jenkins plugin, add its short name to the `plugins.txt` file, then build the Jenkins image and run a temporary container:
+
+-------
+$ docker run --rm <name:tag>
+-------
+If the plugin has prerequisites, they'll be listed on the output. Simply add the requirement to the list of plugins and rebuild the image.
+
 == API Reference
 
 -------
