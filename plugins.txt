@@ -25,3 +25,39 @@ plain-credentials: latest
 credentials-binding: latest
 authentication-tokens: latest
 docker-commons: latest
+# workflow-multibranch requirements
+# workflow-job requirements
+workflow-support: latest
+workflow-job: latest
+branch-api: latest
+cloudbees-folder: latest
+workflow-multibranch: latest
+# pipeline-model-definition requirements
+pipeline-model-api: latest
+pipeline-model-declarative-agent: latest
+pipeline-stage-step: latest
+workflow-basic-steps: latest
+# pipeline-model-extensions requirements
+# workflow-cps requirements
+ace-editor: latest
+jquery-detached: latest
+workflow-cps: latest
+pipeline-model-extensions: latest
+pipeline-stage-tags-metadata: latest
+# workflow-cps-global-lib requirements
+git-server: latest
+workflow-cps-global-lib: latest
+pipeline-input-step: latest
+docker-workflow: latest
+# workflow-durable-task-step requirements
+durable-task: latest
+workflow-durable-task-step: latest
+pipeline-model-definition: latest
+# pipeline-stage-view requirements
+momentjs: latest
+handlebars: latest
+# pipeline-rest-api requirements
+pipeline-graph-analysis: latest
+jackson2-api: latest
+pipeline-rest-api: latest
+pipeline-stage-view: latest
