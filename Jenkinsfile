@@ -17,12 +17,18 @@ pipeline {
             agent {
                 docker {
                     image "app:${env.BUILD_ID}"
-                    args '--link postgres:db'
+                    args '--link postgres:db -v jenkins-data:/var/jenkins_home'
                 }
             }
             steps {
                 echo 'Testing..'
-                sh 'cd /opt/project && python manage.py test'
+                // The cwd here is the location the Docker plugin sets with the `-w` flag
+                sh 'cd podcastmanager && python manage.py test'
+            }
+            post {
+                always {
+                    junit '**/podcastmanager/test_results/*.xml'
+                }
             }
         }
         stage('Deploy') {
