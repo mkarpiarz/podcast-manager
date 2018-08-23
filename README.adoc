@@ -154,6 +154,27 @@ $ docker run -d --name jenkins -p 8080:8080 -v /var/run/docker.sock:/var/run/doc
 -------
 Now you can use Docker on the host from inside the Jenkins container.
 
+=== Creating a Pipeline
+For now this is a manual step.
+
+Open Jenkins UI available under http://localhost:8080 and select `New Item > Multibranch Pipeline`. Give it a name and press OK.
+
+After this, in the `Branch Sources` section select `Add Source > Git`. To build from a local repository specify:
+
+____
+Project Repository: /opt/app
+____
+For remote repository (for example on GitHub), specify the URL to it instead.
+
+Add any extra config (branch filtering or anything that's needed) and Save.
+
+When this is done, press `Scan Multibranch Pipeline Now` on the left -- this will add all branches with Jenkinsfiles in them to the list on the right.
+
+[NOTE]
+====
+You can prevent Jenkins from automatically triggering a build if it notices a change on branches (this has the tendency to get stuck whilst waiting for an executor) by selecting `Add property > Suppress automatic SCM triggering` in the `Branch Sources` section of the Pipeline config.
+====
+
 === Accessing Vault secrets in Jenkins
 First, add Vault credentials in Jenkins by going to `Jenkins > Credentials > System > Global credentials (unrestricted) > Add Credentials` and specify the following:
 
