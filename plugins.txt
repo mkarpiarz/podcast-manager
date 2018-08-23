@@ -61,3 +61,4 @@ pipeline-graph-analysis: latest
 jackson2-api: latest
 pipeline-rest-api: latest
 pipeline-stage-view: latest
+hashicorp-vault-plugin: latest
