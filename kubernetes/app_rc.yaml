@@ -1,0 +1,28 @@
+kind: ReplicationController
+apiVersion: v1
+metadata:
+  name: app
+spec:
+  replicas: 3
+  selector:
+    app: app
+  template:
+    metadata:
+      name: app
+      labels:
+        app: app
+    spec:
+      containers:
+      - name: app
+        image: mkarpiarz/app:latest
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - mountPath: /opt/project/static
+          name: static-files
+          subPath: app_static
+      volumes:
+      - name: static-files
+        glusterfs:
+          endpoints: glusterfs-cluster
+          path: gluster

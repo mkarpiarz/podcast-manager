@@ -10,4 +10,6 @@ WORKDIR /opt
 ADD $PROJECT_DIR project
 WORKDIR /opt/project
 RUN pip install -r requirements.txt
+
+EXPOSE 8000
 CMD ["/usr/bin/supervisord", "-n"]

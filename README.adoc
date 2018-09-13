@@ -210,6 +210,64 @@ $ docker run --rm <name:tag>
 -------
 If the plugin has prerequisites, they'll be listed on the output. Simply add the requirement to the list of plugins and rebuild the image.
 
+== Deployment
+=== Kubernetes
+Prerequisites:
+
+* Vagrant
+* VirtualBox
+* Python with pip
+
+First, clone this kubespray fork:
+
+-------
+$ git clone https://github.com/mkarpiarz/kubespray -b podcastmanager_deploy
+-------
+Change to the `kubespray` directory and install required Python modules (preferably in a separate virtualenv):
+
+-------
+$ pip install -r requirements.txt
+-------
+Then run:
+
+-------
+$ vagrant up
+-------
+This will provision a 3-node local Kubernetes cluster and configure GlusterFS on kube nodes. When this is done, ssh to `k8s-01`.
+
+The Gluster share lives in `/mnt/gluster/` and you need to copy:
+
+* nginx.conf
+* postgres_pass
+
+from here to the share.
+
+[NOTE]
+=====
+Use `vagrant rsync` to trigger a sync of the shared `/vagrant` directory.
+=====
+
+Next, either install `kubctl` or use the one installed on kube master nodes. Cluster config is in `/root/.kube/config`.
+
+Use:
+
+-------
+$ kubectl create -f <file>.yaml
+-------
+on all files in the `kubernetes` directory from this repo. Start with Gluster's endpoints and service as everything else uses these.
+
+When all pods are up and running, run these commands to populate app's database and gather static files:
+
+-------
+$ POD=$(kubectl get pods --selector app=app -o jsonpath='{ .items[0].metadata.name }')
+$ kubectl exec $POD python manage.py migrate
+$ kubectl exec $POD python manage.py collectstatic
+-------
+
+The app will be available at any kube node IP through the nginx's NodePort.
+
+TODO: Simplify the procedure of deploying containers to Kubernetes.
+
 == API Reference
 
 -------
