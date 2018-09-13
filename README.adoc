@@ -1,3 +1,13 @@
+== The structure of this repository
+This repository contains two long-lived active branches:
+
+* `master` -- only includes stable, tested changes
+* `develop` -- includes latest changes that may not be stable
+
+From time to time changes from `develop` are merged into `master`, so the latter can lag behind when it comes to features, but it is pretty much guaranteed to only contain obsessively tested stable changes.
+
+New features are developed on feature branches stemming from (and ultimately merged to) the `develop` branch.
+
 == Django container usage
 To build a container with a specific Django version modify `requirements.txt` in the project directory.
 
